@@ -64,7 +64,8 @@ class FutabaDriver {
 			if (step_cnt>=20 && is_up) is_up = false;
 			else if (step_cnt<=0 && !is_up)  is_up = true;
 			else step_cnt += is_up ? 1 : -1;
-			servo.move(step*step_cnt, 5);
+		//	servo.move(step*step_cnt, 5);
+			servo.move(-460, 5);
 		}
 };
 
