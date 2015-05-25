@@ -47,8 +47,8 @@ class FutabaDriver {
 			// 現在のサーボの角度を通知
 			laser_tilt_pub.sendTransform(
 					tf::StampedTransform(
-						tf::Transform(tf::Quaternion(-step_cnt*step_rad, 0, 0), tf::Vector3(0.0, 0.0, 0.675)),
-						ros::Time::now(),"body", "laser_link"
+						tf::Transform(tf::Quaternion(46, 0, 0), tf::Vector3(0.0, 0.0, 0.675)),
+						ros::Time::now(),"base_link", "laser_link"
 						)
 					);
 			// サーボの回転中心と，URGのオフセット FIXME 毎回更新しなくてもいいデータ
@@ -65,7 +65,7 @@ class FutabaDriver {
 			else if (step_cnt<=0 && !is_up)  is_up = true;
 			else step_cnt += is_up ? 1 : -1;
 		//	servo.move(step*step_cnt, 5);
-			servo.move(-460, 5);
+			servo.move(460, 5);
 		}
 };
 
@@ -76,7 +76,7 @@ int main(int argc, char **argv)
 
 	struct termios oldtio, newtio; /* シリアル通信設定 */
 	// todo  変更可能に
-	int servo_fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY); /* デバイスをオープンする */
+	int servo_fd = open("/dev/ttyUSB1", O_RDWR | O_NOCTTY); /* デバイスをオープンする */
 	ioctl(servo_fd, TCGETS, &oldtio); /* 現在のシリアルポートの設定を待避させる */
 	newtio = oldtio; /* ポートの設定をコピー */
 	// 通信設定
